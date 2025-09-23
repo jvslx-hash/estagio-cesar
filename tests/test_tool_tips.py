@@ -1,18 +1,25 @@
-from pages.tool_tips_page import Tooltipspage
-import time
+import pytest
+from pages.tool_tips_page import ToolTipsPage
 
+@pytest.mark.widgets
+def test_button_tooltip(driver, test_data):
+    """Tests the tooltip on the button."""
+    tool_tips_page = ToolTipsPage(driver)
+    tool_tips_page.navigate(test_data["tool_tips_url"])
+    
+    tool_tips_page.hover_over_button()
+    
+    tooltip_text = tool_tips_page.get_tooltip_text()
+    assert tooltip_text == test_data["tool_tip_button_text"]
 
-def test_tool_tips(driver):
-    tool_tips = Tooltipspage(driver)
-    tool_tips.navigate()
-
-    tool_tips.move_to_button()
-    time.sleep(2)       
-    assert tool_tips.tooltip.is_displayed()
-    assert tool_tips.tooltip.button == "You hovered over the Button"
-
-    tool_tips.move_to_text()
-    time.sleep(2)
-    assert tool_tips.tooltip.is_displayed()
-    assert tool_tips.tooltip.text == "You hovered over the text field"
+@pytest.mark.widgets
+def test_field_tooltip(driver, test_data):
+    """Tests the tooltip on the text field."""
+    tool_tips_page = ToolTipsPage(driver)
+    tool_tips_page.navigate(test_data["tool_tips_url"])
+    
+    tool_tips_page.hover_over_field()
+    
+    tooltip_text = tool_tips_page.get_tooltip_text()
+    assert tooltip_text == test_data["tool_tip_field_text"]
 

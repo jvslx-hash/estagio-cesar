@@ -1,28 +1,31 @@
-
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-class Tooltipspage:
-   
+class ToolTipsPage:
     def __init__(self, driver):
         self.driver = driver
-        self.url = "https://demoqa.com/tool-tips"
-        self.show_message_button = (By.ID, "toolTipButton")
-        self.show_message_text = (By.ID, "toolTipTextField")
-        self.actions = ActionChains(self.driver)
-        self.tooltip = self.driver.find_element(By.CLASS_NAME, "tooltip-inner")
-        
-    def navigate(self):
-        self.driver.get(self.url)  
+        self.wait = WebDriverWait(self.driver, 10)
+         # Locators
+        self.TOOL_TIP_BUTTON = (By.ID, "toolTipButton")
+        self.TOOL_TIP_FIELD = (By.ID, "toolTipTextField")
+        self.TOOL_TIP_MESSAGE = (By.CSS_SELECTOR, ".tooltip-inner")
 
-    def move_to_button(self):
-        self.actions.move_to_element(self.driver.find_element(*self.show_message_button)).perform()
-        
+    def navigate(self, url):
+        self.driver.get(url)
 
-    def move_to_text(self):
-        self.actions.move_to_element(self.driver.find_element(*self.show_message_text)).perform()
+    def hover_over_button(self):
+        button = self.driver.find_element(*self.TOOL_TIP_BUTTON)
+        ActionChains(self.driver).move_to_element(button).perform()
 
+    def hover_over_field(self):
+        field = self.driver.find_element(*self.TOOL_TIP_FIELD)
+        ActionChains(self.driver).move_to_element(field).perform()
+
+    def get_tooltip_text(self):
+        tooltip = self.wait.until(EC.visibility_of_element_located(self.TOOL_TIP_MESSAGE))
+        return tooltip.text
 
 
 
