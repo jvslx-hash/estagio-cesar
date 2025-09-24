@@ -1,3 +1,5 @@
 *.pvc
 
 myproject/
+allure-results/
+test_durations.log
