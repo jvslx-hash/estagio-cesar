@@ -1,8 +1,9 @@
 import pytest
 from pages.tool_tips_page import ToolTipsPage
+from ultils.data_loader import load_json_data
+test_data = load_json_data("data/test_data.json")
 
-@pytest.mark.widgets
-def test_button_tooltip(driver, test_data):
+def test_button_tooltip(driver):
     """Tests the tooltip on the button."""
     tool_tips_page = ToolTipsPage(driver)
     tool_tips_page.navigate(test_data["tool_tips_url"])

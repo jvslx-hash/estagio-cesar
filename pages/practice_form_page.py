@@ -3,7 +3,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import time
 
+
 class PracticeFormPage:
+    """Page object for the DEMOQA Practice form page"""
     def __init__(self, driver):
         self.driver = driver
         self.url = "https://demoqa.com/automation-practice-form"
@@ -23,9 +25,11 @@ class PracticeFormPage:
         self.out_put_modal = (By.ID, "example-modal-sizes-title-lg")
     
     def navigate(self):
+        """Método usado para navegar pela página"""
         self.driver.get(self.url)
 
     def fill_form(self, data):
+        """Método usado para preencher o formulário da página"""
         self.driver.find_element(*self.first_name_input).send_keys(data["first_name"])
         self.driver.find_element(*self.last_name_input).send_keys(data["last_name"])
         self.driver.find_element(*self.email_input).send_keys(data["email"])
@@ -64,9 +68,9 @@ class PracticeFormPage:
 
 
     def submit_form(self):
-        
+        """Método usado para clicar no botão de submit form"""
         self.driver.find_element(*self.submit_button).click()
 
     def check_modal_visible(self):
-        
+        """Método usado para checar se o modal da página está visível"""
         return self.driver.find_element(*self.out_put_modal).is_displayed()

@@ -22,11 +22,6 @@ def driver(request):
     yield driver_instance
     driver_instance.quit()
 
-    # Fixture to load test data from JSON
-@pytest.fixture(scope="session")
-def test_data():
-    with open("data/test_data.json") as f:
-        return json.load(f)
 
 LOG_FILE = Path("test_durations.log")
 
